@@ -1,0 +1,17 @@
+device_path: "/dev/ttyACM0"
+
+values:
+  1:
+    amount: 10
+    currency: 'CZK'
+  2:
+    amount: 20
+    currency: 'CZK'
+  10: 50
+  20: 100
+  40: 200
+
+mqtt:
+  broker: "mqtt://127.0.0.1:1883"
+  topic: "cashacceptord"
+  client_id: "nv10-1"
