@@ -1,3 +1,19 @@
+/* Library for using serial QR/barcode scanner devices.
+   Copyright (C) 2023  İrem Kuyucu <irem@digilol.net>
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Affero General Public License for more details.
+
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <https://www.gnu.org/licenses/>. */
+
 import mqtt from 'mqtt'
 import sspLib from 'encrypted-smiley-secure-protocol'
 import fs from 'fs'
@@ -14,7 +30,7 @@ const config = YAML.parse(file)
 let client = mqtt.connect(config.mqtt.broker, {protocolVersion: 5, clientId: config.mqtt.client_id});
 
 client.on("connect", () => {
-  client.subscribe(config.mqtt.topic, {nl: true}, (err) => {
+  client.subscribe(config.mqtt.topic, {nl: true, qos: 2}, (err) => {
     if (!err) {
       console.log("Successfully subscribed")
     }
@@ -81,11 +97,11 @@ eSSP.on('CREDIT_NOTE', result => {
   var data = {
     event: "moneyin",
     data: {
-      amount: 100,
-      currency: "eur"
+      amount: config.value_map[result.channel].amount,
+      currency: config.value_map[result.channel].currency
     },
   }
-  client.publish(config.mqtt.topic, JSON.stringify(data), {nl: true});
+  client.publish(config.mqtt.topic, JSON.stringify(data), {nl: true, qos: 2});
 })
 
 eSSP.open(config.device_path);

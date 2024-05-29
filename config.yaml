@@ -1,15 +1,39 @@
 device_path: "/dev/ttyACM0"
 
-values:
+value_map:
   1:
-    amount: 10
-    currency: 'CZK'
+    amount: 5
+    currency: "EUR"
   2:
+    amount: 10
+    currency: "EUR"
+  3:
     amount: 20
-    currency: 'CZK'
-  10: 50
-  20: 100
-  40: 200
+    currency: "EUR"
+  4:
+    amount: 50
+    currency: "EUR"
+  5:
+    amount: 100
+    currency: "EUR"
+  6:
+    amount: 200
+    currency: "EUR"
+  7:
+    amount: 100
+    currency: "CZK"
+  8:
+    amount: 200
+    currency: "CZK"
+  9:
+    amount: 500
+    currency: "CZK"
+  10:
+    amount: 1000
+    currency: "CZK"
+  11:
+    amount: 2000
+    currency: "CZK"
 
 mqtt:
   broker: "mqtt://127.0.0.1:1883"
