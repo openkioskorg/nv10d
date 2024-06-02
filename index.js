@@ -45,7 +45,11 @@ client.on("message", (topic, message) => {
     case 'start':
       eSSP.command('ENABLE').then(result => {
         console.log(result)
-      })
+      });
+      // Not sure if this is needed here, just to be safe
+      eSSP.command('SET_CHANNEL_INHIBITS', {channels: [1,1,1,1,1,1,1,1,1,1,1]}).then(result => {
+        console.log(result)
+      });
       break;
     case 'stop':
       eSSP.command('DISABLE').then(result => {
@@ -56,7 +60,6 @@ client.on("message", (topic, message) => {
       console.log("Unknown cmd:", msg.cmd)
   }
 });
-
 
 let eSSP = new sspLib({
   id: 0,
@@ -81,6 +84,7 @@ eSSP.on('OPEN', () => {
     }
   	return;
   })
+  .then(() => eSSP.command('SET_CHANNEL_INHIBITS', {channels: [1,1,1,1,1,1,1,1,1,1,1]}))
 })
 
 eSSP.on('NOTE_REJECTED', result => {

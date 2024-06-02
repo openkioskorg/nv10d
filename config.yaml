@@ -1,4 +1,4 @@
-device_path: "/dev/ttyACM0"
+device_path: "/dev/ttyACM1"
 
 value_map:
   1:
@@ -37,5 +37,5 @@ value_map:
 
 mqtt:
   broker: "mqtt://127.0.0.1:1883"
-  topic: "cashacceptord"
+  topic: "moneyacceptord"
   client_id: "nv10-1"
