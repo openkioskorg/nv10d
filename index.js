@@ -43,16 +43,11 @@ client.on("message", (topic, message) => {
   console.log("Received command:", msg.cmd)
   switch (msg.cmd) {
     case 'start':
-      eSSP.command('ENABLE').then(result => {
-        console.log(result)
-      });
-      // Not sure if this is needed here, just to be safe
-      eSSP.command('SET_CHANNEL_INHIBITS', {channels: [1,1,1,1,1,1,1,1,1,1,1]}).then(result => {
-        console.log(result)
-      });
+      eSSP.enable()
+        .then(() => eSSP.command('SET_CHANNEL_INHIBITS', {channels: [1,1,1,1,1,1,1,1,1,1,1]}))
       break;
     case 'stop':
-      eSSP.command('DISABLE').then(result => {
+      eSSP.disable().then(result => {
         console.log(result)
       })
       break;
@@ -85,6 +80,7 @@ eSSP.on('OPEN', () => {
   	return;
   })
   .then(() => eSSP.command('SET_CHANNEL_INHIBITS', {channels: [1,1,1,1,1,1,1,1,1,1,1]}))
+  .then(() => eSSP.disable())
 })
 
 eSSP.on('NOTE_REJECTED', result => {
